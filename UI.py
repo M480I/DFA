@@ -35,9 +35,15 @@ def output_dfa(dfa):
     res += " ".join(dfa.alphabet) + "\n"
     res += "The starting state:\n\t"
     res += dfa.start + "\n"
-    res += "The final states:\n\t"
+    s = ""
+    if len(dfa.finals) > 1:
+        s = "s"
+    res += f"The final state{s}:\n\t"
     res += " ".join(dfa.finals) + "\n"
-    res += "The transitions:\n"
+    s = ""
+    if len(dfa.transitions) > 1:
+        s = "s"
+    res += f"The transition{s}F:\n"
     for state in dfa.states:
         for symbol in dfa.alphabet:
             res += f"\tδ({state}, {symbol}) = {dfa.transitions[(state, symbol)]}\n"
