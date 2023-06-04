@@ -43,7 +43,7 @@ def output_dfa(dfa):
     s = ""
     if len(dfa.transitions) > 1:
         s = "s"
-    res += f"The transition{s}F:\n"
+    res += f"The transition{s}:\n"
     for state in dfa.states:
         for symbol in dfa.alphabet:
             res += f"\tδ({state}, {symbol}) = {dfa.transitions[(state, symbol)]}\n"
