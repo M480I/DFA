@@ -3,7 +3,9 @@ from DFA import DFA
 
 def input_dfa():
     states = input("Enter the states:\n> ").split(" ")
+    states.sort()
     alphabet = input("Enter the alphabet(default is {a, b}):\n> ").split(" ")
+    alphabet.sort()
     if alphabet[0] == "":
         alphabet = ["a", "b"]
     start = input("Enter the starting state:\n> ")
@@ -16,6 +18,7 @@ def input_dfa():
         while state not in states:
             state = input(f"{state} is not a state. Try again:\n> ")
             finals[i] = state
+    finals.sort()
     transitions = {}
     for state in states:
         for symbol in alphabet:
@@ -27,10 +30,35 @@ def input_dfa():
     return DFA(states, alphabet, start, finals, transitions)
 
 
+def input_nfa():
+    states = input("Enter the states:\n> ").split(" ")
+    states.sort()
+
+    alphabet = input("Enter the alphabet(default is {a, b}):\n> ").split(" ")
+    alphabet.sort()
+    if alphabet[0] == "":
+        alphabet = ["a", "b"]
+
+    start = input("Enter the starting state:\n> ")
+    while start not in states:
+        start = input("Not a state. Try again:\n> ")
+
+    finals = input("Enter the final states:\n> ").split(" ")
+    if finals[0] == "":
+        finals = []
+    for i, state in enumerate(finals):
+        while state not in states:
+            state = input(f"{state} is not a state. Try again:\n> ")
+            finals[i] = state
+    finals.sort()
+
+    pass  # transitions
+
+
 def output_dfa(dfa):
     res = ""
     res += "States:\n\t"
-    res += " ".join(dfa.states) + "\n"
+    res += "   ".join(dfa.states) + "\n"
     res += "Alphabet:\n\t"
     res += " ".join(dfa.alphabet) + "\n"
     res += "The starting state:\n\t"
@@ -39,12 +67,12 @@ def output_dfa(dfa):
     if len(dfa.finals) > 1:
         s = "s"
     res += f"The final state{s}:\n\t"
-    res += " ".join(dfa.finals) + "\n"
+    res += "   ".join(dfa.finals) + "\n"
     s = ""
     if len(dfa.transitions) > 1:
         s = "s"
     res += f"The transition{s}:\n"
     for state in dfa.states:
         for symbol in dfa.alphabet:
-            res += f"\tδ({state}, {symbol}) = {dfa.transitions[(state, symbol)]}\n"
+            res += f"δ({state}, {symbol}) = {dfa.transitions[(state, symbol)]}\n"
     return res
