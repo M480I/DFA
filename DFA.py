@@ -211,6 +211,5 @@ class DFA:
                 compliment_finals.append(state)
         return DFA(self.states, self.alphabet, self.start, compliment_finals, self.transitions)
 
-    
 def failed(string):
     return f" Failed to print {string}.\n"
